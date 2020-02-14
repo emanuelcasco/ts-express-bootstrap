@@ -10,7 +10,7 @@ import logger from './libs/logger';
 
 const PORT = config.common.port;
 
-const app = express();
+export const app = express();
 
 (async function startServer(): Promise<void> {
   /**
