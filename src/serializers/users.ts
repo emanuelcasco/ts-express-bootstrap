@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/explicit-function-return-type */
-import { User } from '../db/entities/User';
+import * as userService from '../services/users';
 
-export const serializeUserDetail = (user: User) => ({
+export const serializeUserDetail = (user: userService.UserEntity) => ({
   id: user.id,
   username: user.username,
   first_name: user.firstName,
@@ -9,4 +9,4 @@ export const serializeUserDetail = (user: User) => ({
   email: user.email
 });
 
-export const serializeUserList = (users: User[]) => users.map(serializeUserDetail);
+export const serializeUserList = (users: userService.UserEntity[]) => users.map(serializeUserDetail);

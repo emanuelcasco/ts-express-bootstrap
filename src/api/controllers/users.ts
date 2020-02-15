@@ -29,10 +29,9 @@ export async function findById(req: Request, res: Response, next: NextFunction):
 
 export async function signup(req: Request, res: Response, next: NextFunction): Promise<Response | void> {
   try {
-    const params: userService.UserParams = req.body;
+    const params: userService.UserEntity = req.body;
     const exist = await userService.findBy({ email: params.email });
     if (exist) throw alreadyExistError(`User with email ${params.email} already exist!`);
-
     const cryptedPassword = await bcryptService.encrypt(params.password);
     const user = await userService.create({ ...params, password: cryptedPassword });
     return res.status(status.CREATED).send(serializeUserDetail(user));
@@ -43,7 +42,7 @@ export async function signup(req: Request, res: Response, next: NextFunction): P
 
 export async function login(req: Request, res: Response, next: NextFunction): Promise<Response | void> {
   try {
-    const { email, password }: { email: string; password: string } = req.body;
+    const { email, password }: userService.UserEntity = req.body;
     const user = await userService.findBy({ email });
     if (user) {
       const isValid = await bcryptService.compare(password, user.password);
