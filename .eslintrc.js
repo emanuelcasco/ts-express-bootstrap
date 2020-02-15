@@ -27,6 +27,7 @@ module.exports = {
     "class-name-casing": "off",
     "func-call-spacing": "off",
     "indent": "off",
+    "init-declarations": "off",
     "no-array-constructor": "off",
     "no-extra-parens": "off",
     "no-magic-numbers": "off",
