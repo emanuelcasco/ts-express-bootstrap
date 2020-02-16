@@ -7,12 +7,12 @@
     "downlevelIteration": true,
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
-    "lib": ["esnext", "es6"],
+    "lib": ["es2018", "es6"],
     "module": "commonjs",
     "moduleResolution": "node",
     "outDir": "build",
     "sourceMap": true,
-    "target": "esnext",
+    "target": "es2018",
     "removeComments": true,
 
     /** Strict Type-Checking Options **/
