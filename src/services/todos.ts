@@ -1,10 +1,10 @@
-import got from 'got';
+import axios from 'axios';
 
 import { externalApiError } from '../api/errors';
 import config from '../config';
 
-const instance = got.extend({
-  prefixUrl: config.todosExternalApi.baseUrl,
+const instance = axios.create({
+  baseURL: config.todosExternalApi.baseUrl,
   responseType: 'json'
 });
 
@@ -17,8 +17,8 @@ export interface Todo {
 
 export async function findAll(): Promise<Todo[]> {
   try {
-    const response = await instance.get<Todo[]>('todos');
-    return response.body;
+    const { data: todoList } = await instance.get<Todo[]>('/todos');
+    return todoList;
   } catch (err) {
     throw externalApiError('Error on service requesting todos', err);
   }
@@ -26,8 +26,8 @@ export async function findAll(): Promise<Todo[]> {
 
 export async function findById(id: string): Promise<Todo> {
   try {
-    const response = await instance.get<Todo>(`todos/${id}`);
-    return response.body;
+    const { data: todoItem } = await instance.get<Todo>(`/todos/${id}`);
+    return todoItem;
   } catch (err) {
     throw externalApiError(`Error on service requesting todo. Id ${id}`, err);
   }
