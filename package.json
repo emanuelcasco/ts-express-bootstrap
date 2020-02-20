@@ -23,12 +23,16 @@
     "migrations-undo": "npm run typeorm-cli -- migration:revert --config ./src/db/config.ts",
     "outdated": "npm outdated --depth 0",
     "postinstall": "npm run build",
-    "precommit": "npm run lint-diff",
-    "prepush": "npm test",
     "pretest": "npm run lint",
     "start": "npm run build && node build/server.js",
     "test": "NODE_ENV=testing jest --forceExit --detectOpenHandles --verbose --runInBand",
     "typeorm-cli": "ts-node-dev ./node_modules/.bin/typeorm"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "npm run lint-diff",
+      "pre-push": "npm test"
+    }
   },
   "cacheDirectories": [
     "node_modules"
@@ -75,6 +79,7 @@
     "eslint-plugin-import": "^2.18.2",
     "eslint-plugin-prettier": "^3.1.1",
     "faker": "^4.1.0",
+    "husky": "^4.2.3",
     "jest": "^24.9.0",
     "prettier": "^1.19.1",
     "prettier-eslint": "^9.0.0",
