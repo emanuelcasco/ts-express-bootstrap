@@ -3,10 +3,7 @@ import axios from 'axios';
 import { externalApiError } from '../api/errors';
 import config from '../config';
 
-const instance = axios.create({
-  baseURL: config.todosExternalApi.baseUrl,
-  responseType: 'json'
-});
+export const BASE_URL = config.todosExternalApi.baseUrl as string;
 
 export interface Todo {
   userId: number;
@@ -14,6 +11,11 @@ export interface Todo {
   title: string;
   completed: boolean;
 }
+
+const instance = axios.create({
+  baseURL: BASE_URL,
+  responseType: 'json'
+});
 
 export async function findAll(): Promise<Todo[]> {
   try {

@@ -1,8 +1,26 @@
 import request from 'supertest';
-import app from '../../src/app';
+import nock from 'nock';
 
+import app from '../../src/app';
 import { encode } from '../../src/services/session-manager';
+import { BASE_URL } from '../../src/services/todos';
 import { create as createUser } from '../factories/user';
+
+export const mockTodo = {
+  userId: 1,
+  id: 1,
+  title: 'delectus aut autem',
+  completed: false
+};
+
+export const mockTodos = [
+  {
+    user_id: 1,
+    id: 1,
+    title: 'delectus aut autem',
+    completed: false
+  }
+];
 
 describe('todos controller', () => {
   let token: string;
@@ -14,6 +32,7 @@ describe('todos controller', () => {
   });
 
   describe('/todos GET', () => {
+    nock(BASE_URL).get('/todos', mockTodos);
     test('should return all todos', (done: jest.DoneCallback) => {
       request(app)
         .get('/todos')
@@ -26,6 +45,10 @@ describe('todos controller', () => {
           expect(res.body[0]).toHaveProperty('user_id');
           expect(res.body[0]).toHaveProperty('title');
           expect(res.body[0]).toHaveProperty('completed');
+          expect(res.body[0].id).toBe(mockTodo.id);
+          expect(res.body[0].user_id).toBe(mockTodo.userId);
+          expect(res.body[0].title).toBe(mockTodo.title);
+          expect(res.body[0].completed).toBe(mockTodo.completed);
           done();
         });
     });
@@ -59,6 +82,7 @@ describe('todos controller', () => {
   });
 
   describe('/todos/:id GET', () => {
+    nock(BASE_URL).get('/todos/1', mockTodo);
     test('should return todo by provided id', (done: jest.DoneCallback) => {
       request(app)
         .get('/todos/1')
@@ -70,6 +94,10 @@ describe('todos controller', () => {
           expect(res.body).toHaveProperty('user_id');
           expect(res.body).toHaveProperty('title');
           expect(res.body).toHaveProperty('completed');
+          expect(res.body.id).toBe(mockTodo.id);
+          expect(res.body.user_id).toBe(mockTodo.userId);
+          expect(res.body.title).toBe(mockTodo.title);
+          expect(res.body.completed).toBe(mockTodo.completed);
           done();
         });
     });
