@@ -8,12 +8,12 @@
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
     "incremental": true,
-    "lib": ["es2018", "es6"],
+    "lib": ["es2020", "es6"],
     "module": "commonjs",
     "moduleResolution": "node",
     "outDir": "dist",
     "sourceMap": true,
-    "target": "es2018",
+    "target": "es2020",
     "removeComments": true,
 
     /** Strict Type-Checking Options **/
@@ -45,7 +45,7 @@
   ],
   "exclude": [
     "node_modules",
-    "build",
+    "dist",
     "tests"
   ]
 }
